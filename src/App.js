@@ -68,12 +68,7 @@ class App extends Component {
           />
           <Route
             path="/note-details/:id"
-            render={({ match }) => (
-              <NoteDetails
-                folders={this.state.folders}
-                note={this.state.notes.find(n => n.id === match.params.id)}
-              />
-            )}
+            component={NoteDetails}
           />
           <Route path="/" render={() => <div>404 Not Found</div>} />
         </Switch>
