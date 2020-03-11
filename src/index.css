@@ -21,3 +21,9 @@ code {
 #root {
   display: contents;
 }
+
+button {
+  padding: 1em;
+  font-size: 1em;
+  width: 125px;
+}

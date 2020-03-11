@@ -18,25 +18,30 @@ class NoteDetails extends Component {
       .catch(err => console.log(err));
   };
 
+  formatDate(date) {
+    return new Date(date).toLocaleString();
+  }
+
+  getCurrentNote() {
+    const notes = this.context.notes || [];
+    return notes.length
+      ? notes.find(n => n.id === this.props.match.params.id)
+      : [];
+  }
+
   render() {
-    const note = this.context.notes.find(
-      n => n.id === this.props.match.params.id,
-    );
-    const { folderId, name, content, modified } = note;
-    const dateModified = new Date(modified).toLocaleString();
-    const folder = this.context.folders.find(f => f.id === folderId);
+    const currentNote = this.getCurrentNote();
+    const { id, name, content, modified } = currentNote || {};
+    const dateModified = this.formatDate(modified);
 
     return (
       <>
-        <NoteDetailsNav folder={folder} />
         <section className="Main">
           <div className="Main__note_header">
             <h3>{name}</h3>
             <p>{dateModified}</p>
             <button
-              onClick={() =>
-                this.handleDeleteNote(note.id, this.context.deleteNote)
-              }
+              onClick={() => this.handleDeleteNote(id, this.context.deleteNote)}
             >
               Delete
             </button>

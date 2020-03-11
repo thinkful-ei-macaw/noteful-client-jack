@@ -4,18 +4,27 @@ import { Link } from 'react-router-dom';
 import NoteContext from '../../NoteContext';
 
 class NoteList extends Component {
+  static defaultProps = {
+    match: {
+      params: {},
+    },
+  };
+
+  static contextType = NoteContext;
+
   formatDate(date) {
     return new Date(date).toLocaleString();
   }
-  static contextType = NoteContext;
 
   getNotes() {
     if (this.props.match.params.id) {
-      return this.context.notes.filter(
-        note => note.folderId === this.props.match.params.id,
+      return (
+        this.context.notes.filter(
+          note => note.folderId === this.props.match.params.id,
+        ) || []
       );
     } else {
-      return this.context.notes;
+      return this.context.notes || [];
     }
   }
 

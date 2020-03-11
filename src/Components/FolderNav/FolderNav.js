@@ -6,7 +6,7 @@ import NoteContext from '../../NoteContext';
 class FolderNav extends Component {
   static contextType = NoteContext;
   render() {
-    const { folders } = this.context;
+    const folders = this.context.folders || [];
     return (
       <nav className="Sidebar">
         <ul>

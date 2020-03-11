@@ -3,6 +3,7 @@ import './App.css';
 import FolderNav from './Components/FolderNav/FolderNav';
 import NoteList from './Components/NoteList/NoteList';
 import NoteDetails from './Components/NoteDetails/NoteDetails';
+import NoteDetailsNav from './Components/NoteDetailsNav/NoteDetailsNav';
 import { Route, Link, Switch } from 'react-router-dom';
 import NoteContext from './NoteContext';
 
@@ -59,6 +60,7 @@ class App extends Component {
         </header>
         <NoteContext.Provider value={contextValue}>
           <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
+          <Route path="/note-details/:id" component={NoteDetailsNav} />
           <Switch>
             <Route exact path="/" component={NoteList} />
             <Route path="/note-list/:id" component={NoteList} />
