@@ -4,6 +4,7 @@ import FolderNav from './Components/FolderNav/FolderNav';
 import NoteList from './Components/NoteList/NoteList';
 import NoteDetails from './Components/NoteDetails/NoteDetails';
 import { Route, Link, Switch } from 'react-router-dom';
+import NoteContext from './NoteContext'
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,11 @@ class App extends Component {
   }
 
   render() {
+    const contextValue = {
+      notes: this.state.notes,
+      folders: this.state.folders
+    }
+
     return (
       <div className="App">
         <header className="App__header">
@@ -41,24 +47,22 @@ class App extends Component {
             <Link to="/">Noteful</Link>
           </h1>
         </header>
+        <NoteContext.Provider value={contextValue}>
         <Route
           exact
           path={['/', '/note-list/:id']}
-          render={() => <FolderNav folders={this.state.folders} />}
+          component={FolderNav}
         />
         <Switch>
           <Route
             exact
             path="/"
-            render={() => <NoteList notes={this.state.notes} />}
+            component={NoteList}
           />
           <Route
             path="/note-list/:id"
-            render={({ match }) => (
-              <NoteList
-                notes={this.state.notes.filter(
-                  note => note.folderId === match.params.id,
-                )}
+            component=
+              {NoteList}
               />
             )}
           />
@@ -73,6 +77,7 @@ class App extends Component {
           />
           <Route path="/" render={() => <div>404 Not Found</div>} />
         </Switch>
+        </NoteContext.Provider>
       </div>
     );
   }
