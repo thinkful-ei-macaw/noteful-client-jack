@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import './NoteDetails.css';
 import NoteDetailsNav from '../NoteDetailsNav/NoteDetailsNav';
-import NoteContext from '../../NoteContext'
-
+import NoteContext from '../../NoteContext';
 
 class NoteDetails extends Component {
   static contextType = NoteContext;
 
-
-
   render() {
-
-    const note = this.context.notes.find(n => n.id === this.props.match.params.id);
-    const { folderId, name, content, modified } = note
+    const note = this.context.notes.find(
+      n => n.id === this.props.match.params.id,
+    );
+    const { folderId, name, content, modified } = note;
     const dateModified = new Date(modified).toLocaleString();
     const folder = this.context.folders.find(f => f.id === folderId);
-  
 
     return (
       <>

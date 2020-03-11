@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './NoteList.css';
 import { Link } from 'react-router-dom';
-import NoteContext from '../../NoteContext'
+import NoteContext from '../../NoteContext';
 
 class NoteList extends Component {
   formatDate(date) {
@@ -11,15 +11,16 @@ class NoteList extends Component {
 
   getNotes() {
     if (this.props.match.params.id) {
-      return this.context.notes.filter(note => note.folderId === this.props.match.params.id)}
-    else {
-         return this.context.notes;
-       }
+      return this.context.notes.filter(
+        note => note.folderId === this.props.match.params.id,
+      );
+    } else {
+      return this.context.notes;
+    }
   }
 
-
   render() {
-    const notes = this.getNotes()
+    const notes = this.getNotes();
     return (
       <ul className="Main note_list">
         {notes.map(note => {
