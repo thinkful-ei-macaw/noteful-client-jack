@@ -17,16 +17,19 @@ class App extends Component {
 
   componentDidMount() {
     const api_link_folders = 'http://localhost:9090/folders';
-
     const api_link_notes = 'http://localhost:9090/notes';
 
-    fetch(api_link_folders)
-      .then(res => res.json())
-      .then(data => this.setState({ folders: data }));
+    Promise.all([fetch(api_link_folders), fetch(api_link_notes)])
+      .then(([folderRes, noteRes]) => {
+        if (!folderRes.ok) return folderRes.json().then(e => Promise.reject(e));
+        if (!noteRes.ok) return noteRes.json().then(e => Promise.reject(e));
 
-    fetch(api_link_notes)
-      .then(res => res.json())
-      .then(data => this.setState({ notes: data }));
+        return Promise.all([folderRes.json(), noteRes.json()]);
+      })
+      .then(([folders, notes]) => {
+        this.setState({ folders, notes });
+      })
+      .catch(error => console.error(error));
   }
 
   setNotes = notes => {
@@ -59,7 +62,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={NoteList} />
             <Route path="/note-list/:id" component={NoteList} />
-            )} />
             <Route path="/note-details/:id" component={NoteDetails} />
             <Route path="/" render={() => <div>404 Not Found</div>} />
           </Switch>
