@@ -15,7 +15,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState(this.props.store);
+    const api_link_folders = "http://localhost:9090/folders";
+
+    const api_link_notes = "http://localhost:9090/notes";
+
+    fetch(api_link_folders)
+    .then (res => res.json())
+    .then (data => this.setState(
+      {folders: data}
+    )
+    )
+
+    fetch(api_link_notes)
+    .then (res => res.json())
+    .then (data => this.setState(
+      {notes: data}
+    ))
   }
 
   render() {
