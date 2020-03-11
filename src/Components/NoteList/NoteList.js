@@ -21,6 +21,7 @@ class NoteList extends Component {
 
   render() {
     const notes = this.getNotes();
+    const deleteNote = this.context.deleteNote;
     return (
       <ul className="Main note_list">
         {notes.map(note => {
@@ -31,6 +32,7 @@ class NoteList extends Component {
                 <Link to={`/note-details/${note.id}`}>{note.name}</Link>
               </h2>
               <p>{date}</p>
+              <button onClick={() => deleteNote(note.id)}>Delete</button>
             </li>
           );
         })}

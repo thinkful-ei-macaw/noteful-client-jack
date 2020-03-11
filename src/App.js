@@ -29,10 +29,22 @@ class App extends Component {
       .then(data => this.setState({ notes: data }));
   }
 
+  setNotes = notes => {
+    this.setState({
+      notes: notes,
+    });
+  };
+
+  deleteNote = id => {
+    const newNotes = this.state.notes.filter(n => n.id !== id);
+    this.setNotes(newNotes);
+  };
+
   render() {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
+      deleteNote: this.deleteNote,
     };
 
     return (
