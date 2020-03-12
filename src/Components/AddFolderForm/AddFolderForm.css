@@ -1,0 +1,27 @@
+form.Main {
+  justify-self: left;
+}
+
+form.Main > input[type='text'] {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+form.Main > label {
+  float: left;
+  width: 100%;
+  color: white;
+  font-size: 1.2em;
+  margin-bottom: 4px;
+}
+
+form.Main > input[type='submit'] {
+  width: 50%;
+  margin-top: 8px;
+  padding: 8px;
+}
+
+.validation-error {
+  color: white;
+}

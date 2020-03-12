@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
+import './AddNoteForm.css';
 
 class AddNoteForm extends Component {
   constructor(props) {
@@ -47,10 +48,19 @@ class AddNoteForm extends Component {
         'content-type': 'application/json',
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
+        }
+      })
       .then(data => {
         this.props.onAddNote(data);
         this.props.history.goBack();
+      })
+      .catch(error => {
+        this.setState({ error });
       });
   }
 
@@ -106,7 +116,7 @@ class AddNoteForm extends Component {
 
   render() {
     return (
-      <form onSubmit={e => this.handleSubmit(e)}>
+      <form className="Main" onSubmit={e => this.handleSubmit(e)}>
         <label htmlFor="title">Title</label>
         <input
           type="text"
@@ -148,6 +158,9 @@ class AddNoteForm extends Component {
             this.validateTitle() || this.validateDesc() || this.validateFolder()
           }
         />
+        {this.state.error && (
+          <p>There was an error adding the note, please try again later.</p>
+        )}
       </form>
     );
   }

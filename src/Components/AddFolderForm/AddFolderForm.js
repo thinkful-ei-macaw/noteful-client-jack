@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
+import './AddFolderForm.css';
 
 class AddFolderForm extends Component {
   constructor(props) {
@@ -26,10 +27,19 @@ class AddFolderForm extends Component {
         'content-type': 'application/json',
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
+        }
+      })
       .then(data => {
         this.props.onAddFolder(data);
         this.props.history.goBack();
+      })
+      .catch(error => {
+        this.setState({ error });
       });
   }
 
@@ -66,6 +76,9 @@ class AddFolderForm extends Component {
           <ValidationError message={this.validateFolderName()} />
         )}
         <input type="submit" disabled={this.validateFolderName()} />
+        {this.state.error && (
+          <p>There was an error adding the folder, please try again later.</p>
+        )}
       </form>
     );
   }
