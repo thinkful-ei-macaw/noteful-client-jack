@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './NoteDetails.css';
-import NoteDetailsNav from '../NoteDetailsNav/NoteDetailsNav';
 import NoteContext from '../../NoteContext';
 
 class NoteDetails extends Component {
@@ -38,7 +37,7 @@ class NoteDetails extends Component {
       <>
         <section className="Main">
           <div className="Main__note_header">
-            <h3>{name}</h3>
+            <h2>{name}</h2>
             <p>{dateModified}</p>
             <button
               onClick={() => this.handleDeleteNote(id, this.context.deleteNote)}

@@ -7,3 +7,12 @@
   border-radius: 5px;
   padding: 1em;
 }
+
+.Main__note_header h2 {
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.Main__note_details {
+  padding: 1em;
+}

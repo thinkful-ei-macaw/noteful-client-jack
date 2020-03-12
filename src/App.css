@@ -1,11 +1,10 @@
 .App {
+  height: 100%;
   display: grid;
-  grid-template-rows: minmax(4em, 4em);
-  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    'header header header'
-    'nav main main'
-    '... main main';
+    'header'
+    'nav'
+    'main';
 }
 
 .App__header {
@@ -15,8 +14,10 @@
 
 .Main {
   grid-area: main;
+  justify-self: center;
 }
 
 .Sidebar {
   grid-area: nav;
+  justify-self: center;
 }

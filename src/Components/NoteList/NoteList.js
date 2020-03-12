@@ -37,9 +37,7 @@ class NoteList extends Component {
           const date = this.formatDate(note.modified);
           return (
             <li key={note.id}>
-              <h2>
-                <Link to={`/note-details/${note.id}`}>{note.name}</Link>
-              </h2>
+              <Link to={`/note-details/${note.id}`}>{note.name}</Link>
               <p>{date}</p>
               <button onClick={() => deleteNote(note.id)}>Delete</button>
             </li>

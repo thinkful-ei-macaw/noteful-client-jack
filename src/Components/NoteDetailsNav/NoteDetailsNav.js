@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './NoteDetailsNav.css';
 import NoteContext from '../../NoteContext';
+import './NoteDetailsNav.css';
 
 class NoteDetailsNav extends Component {
   static defaultProps = {
@@ -29,14 +30,12 @@ class NoteDetailsNav extends Component {
     const currentFolder = this.findCurrentFolder(folders, note.folderId);
 
     return (
-      <>
-        <nav className="Sidebar">
-          <button onClick={this.props.history.goBack}>Go Back</button>
-          {currentFolder && (
-            <h2 className="Sidebar__nav_folder">{currentFolder.name}</h2>
-          )}
-        </nav>
-      </>
+      <div className="Sidebar">
+        <button onClick={this.props.history.goBack}>Go Back</button>
+        {currentFolder && (
+          <h2 className="Sidebar__nav_folder">{currentFolder.name}</h2>
+        )}
+      </div>
     );
   }
 }

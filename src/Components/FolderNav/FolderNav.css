@@ -1,5 +1,8 @@
 .Sidebar > ul {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
 
 .Sidebar > ul > li {
@@ -8,10 +11,13 @@
 
 .Sidebar a {
   display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   width: 100%;
   text-align: center;
   padding: 0;
-  margin: 0 0;
+  margin: 0;
   border: 1px solid black;
   font-size: 1.2em;
   line-height: 3em;
@@ -21,5 +27,5 @@
 }
 
 .Sidebar__selected {
-  background-color: beige;
+  background-color: #84ceeb;
 }

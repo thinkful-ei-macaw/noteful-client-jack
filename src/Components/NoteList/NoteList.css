@@ -1,23 +1,53 @@
 .Main.note_list {
+  min-width: 90%;
   list-style-type: none;
   display: grid;
   grid-template-columns: 1fr;
 }
 
+.Main.note_list a {
+  display: inline-block;
+  background-color: #00b7ff00;
+  text-decoration: none;
+  border: 1px solid white;
+  padding: 16px 64px;
+  transition: all 0.1s ease-in;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.Main.note_list a:hover {
+  transform: scale(1.2);
+  background-color: #5413cec9;
+}
+
 .Main.note_list > li {
+  background: rgb(86, 128, 233);
+  background: linear-gradient(
+    167deg,
+    rgba(86, 128, 233, 1) 22%,
+    rgba(0, 183, 255, 1) 78%
+  );
   padding: 8px;
   margin-top: 16px;
   border: 1px solid black;
   border-radius: 5px;
-  box-shadow: 3px 3px 3px 3px gray;
+  box-shadow: 1px 3px 3px 1px #55496bc9;
   font-size: 1.1em;
   text-align: center;
-  max-width: 75%;
+  min-width: 100%;
   min-height: 4em;
 }
 
 @media screen and (min-width: 600px) {
   .Main.note_list {
     grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .Main.note_list {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
