@@ -25,10 +25,10 @@
   background: rgb(86, 128, 233);
   background: linear-gradient(
     167deg,
-    rgba(86, 128, 233, 1) 22%,
-    rgba(0, 183, 255, 1) 78%
+    rgba(86, 128, 233, 1) 0%,
+    rgba(0, 183, 255, 1) 100%
   );
-  padding: 8px;
+  padding: 16px;
   margin-top: 16px;
   border: 1px solid black;
   border-radius: 5px;

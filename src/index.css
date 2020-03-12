@@ -61,4 +61,10 @@ button {
   letter-spacing: 1.2px;
   background-color: #3669ec;
   border: 1px solid #23325a;
+  transition: all 0.1s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background-color: #1752e9;
 }

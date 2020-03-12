@@ -16,16 +16,23 @@
   letter-spacing: 1px;
   width: 100%;
   text-align: center;
-  padding: 0;
+  padding: 8px;
   margin: 0;
   border: 1px solid black;
+  border-radius: 5px;
   font-size: 1.2em;
   line-height: 3em;
   max-width: 75%;
   min-height: 3em;
   font-family: sans-serif;
+  transition: all 0.1s ease-in-out;
+}
+
+.Sidebar a:hover {
+  background-color: #3669ec;
 }
 
 .Sidebar__selected {
   background-color: #3669ec;
+  transform: scale(1.1);
 }
