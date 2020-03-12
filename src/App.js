@@ -9,6 +9,7 @@ import NoteContext from './NoteContext';
 import AddFolderForm from './Components/AddFolderForm/AddFolderForm';
 import AddNoteForm from './Components/AddNoteForm/AddNoteForm';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -72,35 +73,38 @@ class App extends Component {
             <Link to="/">Noteful</Link>
           </h1>
         </header>
-         <ErrorBoundary>
-        <NoteContext.Provider value={contextValue}>
-          <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
-          <Route path="/note-details/:id" component={NoteDetailsNav} />
-          <Switch>
-            <Route exact path="/" component={NoteList} />
-            <Route path="/note-list/:id" component={NoteList} />
-            <Route path="/note-details/:id" component={NoteDetails} />
-            <Route
-              exact
-              path="/new-folder/"
-              render={({ history }) => (
-                <AddFolderForm history={history} onAddFolder={this.addFolder} />
-              )}
-            />
-            <Route
-              exact
-              path="/new-note/"
-              render={({ history }) => (
-                <AddNoteForm
-                  history={history}
-                  folders={this.state.folders}
-                  onAddNote={this.addNote}
-                />
-              )}
-            />
-            <Route path="/" render={() => <div>404 Not Found</div>} />
-          </Switch>
-        </NoteContext.Provider>
+        <ErrorBoundary>
+          <NoteContext.Provider value={contextValue}>
+            <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
+            <Route path="/note-details/:id" component={NoteDetailsNav} />
+            <Switch>
+              <Route exact path="/" component={NoteList} />
+              <Route path="/note-list/:id" component={NoteList} />
+              <Route path="/note-details/:id" component={NoteDetails} />
+              <Route
+                exact
+                path="/new-folder/"
+                render={({ history }) => (
+                  <AddFolderForm
+                    history={history}
+                    onAddFolder={this.addFolder}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/new-note/"
+                render={({ history }) => (
+                  <AddNoteForm
+                    history={history}
+                    folders={this.state.folders}
+                    onAddNote={this.addNote}
+                  />
+                )}
+              />
+              <Route path="/" render={() => <div>404 Not Found</div>} />
+            </Switch>
+          </NoteContext.Provider>
         </ErrorBoundary>
       </div>
     );
