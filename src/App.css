@@ -21,3 +21,13 @@
   grid-area: nav;
   justify-self: center;
 }
+
+@media screen and (min-width: 1000px) {
+  .App {
+    grid-template-columns: minmax(100px, 300px) 1fr 1fr;
+    grid-template-areas:
+      'header header header'
+      'nav main main'
+      '... main main';
+  }
+}
