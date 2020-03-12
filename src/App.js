@@ -102,7 +102,10 @@ class App extends Component {
                   />
                 )}
               />
-              <Route path="/" render={() => <div>404 Not Found</div>} />
+              <Route
+                path="/"
+                render={() => <div className="Main error">404 Not Found</div>}
+              />
             </Switch>
           </NoteContext.Provider>
         </ErrorBoundary>

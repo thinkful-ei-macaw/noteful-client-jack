@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
+import PropTypes from 'prop-types';
 
 class AddFolderForm extends Component {
   constructor(props) {
@@ -69,4 +70,10 @@ class AddFolderForm extends Component {
     );
   }
 }
+
+AddFolderForm.propTypes = {
+  onAddFolder: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
 export default AddFolderForm;

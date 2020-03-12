@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
+import PropTypes from 'prop-types';
 
 class AddNoteForm extends Component {
   constructor(props) {
@@ -151,4 +152,16 @@ class AddNoteForm extends Component {
     );
   }
 }
+
+AddNoteForm.propTypes = {
+  onAddNote: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  folders: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  ),
+};
+
 export default AddNoteForm;
