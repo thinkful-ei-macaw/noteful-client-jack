@@ -8,7 +8,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import NoteContext from './NoteContext';
 import AddFolderForm from './Components/AddFolderForm/AddFolderForm';
 import AddNoteForm from './Components/AddNoteForm/AddNoteForm';
-
+import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -72,6 +72,7 @@ class App extends Component {
             <Link to="/">Noteful</Link>
           </h1>
         </header>
+         <ErrorBoundary>
         <NoteContext.Provider value={contextValue}>
           <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
           <Route path="/note-details/:id" component={NoteDetailsNav} />
@@ -100,6 +101,7 @@ class App extends Component {
             <Route path="/" render={() => <div>404 Not Found</div>} />
           </Switch>
         </NoteContext.Provider>
+        </ErrorBoundary>
       </div>
     );
   }
