@@ -36,3 +36,13 @@
   background-color: #3669ec;
   transform: scale(1.1);
 }
+
+.Sidebar__new {
+  margin-bottom: 16px;
+  border: 1px dotted black;
+  background-color: darkviolet;
+}
+
+.Sidebar__new:hover {
+  background-color: rgb(156, 24, 212);
+}

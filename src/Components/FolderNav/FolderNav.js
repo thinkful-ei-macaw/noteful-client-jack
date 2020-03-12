@@ -10,6 +10,12 @@ class FolderNav extends Component {
     return (
       <nav className="Sidebar">
         <ul>
+          <button
+            className="Sidebar__new"
+            onClick={() => this.props.history.push('/new-folder/')}
+          >
+            New Folder
+          </button>
           {folders.map(folder => {
             return (
               <li key={folder.id}>
@@ -22,6 +28,7 @@ class FolderNav extends Component {
               </li>
             );
           })}
+          <li></li>
         </ul>
       </nav>
     );

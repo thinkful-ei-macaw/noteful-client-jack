@@ -6,6 +6,8 @@ import NoteDetails from './Components/NoteDetails/NoteDetails';
 import NoteDetailsNav from './Components/NoteDetailsNav/NoteDetailsNav';
 import { Route, Link, Switch } from 'react-router-dom';
 import NoteContext from './NoteContext';
+import AddFolderForm from './Components/AddFolderForm/AddFolderForm';
+import AddNoteForm from './Components/AddNoteForm/AddNoteForm';
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +34,12 @@ class App extends Component {
       })
       .catch(error => console.error(error));
   }
+
+  addFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder],
+    });
+  };
 
   setNotes = notes => {
     this.setState({
@@ -62,9 +70,17 @@ class App extends Component {
           <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
           <Route path="/note-details/:id" component={NoteDetailsNav} />
           <Switch>
+            <AddNoteForm folders={this.state.folders} />
             <Route exact path="/" component={NoteList} />
             <Route path="/note-list/:id" component={NoteList} />
             <Route path="/note-details/:id" component={NoteDetails} />
+            <Route
+              exact
+              path="/new-folder/"
+              render={({ history }) => (
+                <AddFolderForm history={history} onAddFolder={this.addFolder} />
+              )}
+            />
             <Route path="/" render={() => <div>404 Not Found</div>} />
           </Switch>
         </NoteContext.Provider>
