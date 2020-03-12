@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ErrorBoundary.css';
+import { Redirect } from 'react-router-dom';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class ErrorBoundary extends Component {
           <span role="img" aria-label="sad cat because error">
             😿
           </span>
+          <Redirect to="/" />
         </div>
       );
     } else return this.props.children;
