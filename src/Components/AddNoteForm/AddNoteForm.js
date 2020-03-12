@@ -20,10 +20,37 @@ class AddNoteForm extends Component {
     };
   }
 
+  getFolderId = folderName => {
+    const currentFolder = this.props.folders.find(
+      folder => folder.name === folderName,
+    );
+    return currentFolder.id;
+  };
+
   handleSubmit(e) {
     e.preventDefault();
-    console.log('Form submitted');
-    console.log(this.state);
+    const noteTitle = this.state.title.value;
+    const noteDesc = this.state.desc.value;
+    const noteFolderId = this.getFolderId(this.state.folder.value);
+    const note = {
+      name: noteTitle,
+      modified: Date.now(),
+      folderId: noteFolderId,
+      content: noteDesc,
+    };
+    console.log(noteFolderId);
+    fetch('http://localhost:9090/notes/', {
+      method: 'POST',
+      body: JSON.stringify(note),
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.props.onAddNote(data);
+        this.props.history.goBack();
+      });
   }
 
   updateTitle(title) {
@@ -62,9 +89,19 @@ class AddNoteForm extends Component {
     }
   }
 
-  validateDesc(desc) {}
+  validateDesc() {
+    const currentDesc = this.state.desc.value.trim();
+    if (currentDesc.length === 0) {
+      return 'Please enter a description';
+    }
+  }
 
-  validateFolder(folder) {}
+  validateFolder() {
+    const currentFolder = this.state.folder.value;
+    if (currentFolder === 'default') {
+      return 'Please choose a folder for this note.';
+    }
+  }
 
   render() {
     return (
@@ -86,19 +123,30 @@ class AddNoteForm extends Component {
           id="desc"
           onChange={e => this.updateDesc(e.target.value)}
         />
+        {this.state.desc.touched && (
+          <ValidationError message={this.validateDesc()} />
+        )}
         <label htmlFor="folder"></label>
         <select
           htmlFor="folder"
           onChange={e => this.updateFolder(e.target.value)}
         >
-          <option>Select a folder..</option>
+          <option value="default">Select a folder..</option>
           {this.props.folders.map(folder => (
             <option value={folder.name} key={folder.id}>
               {folder.name}
             </option>
           ))}
         </select>
-        <input type="submit" />
+        {this.state.folder.touched && (
+          <ValidationError message={this.validateFolder()} />
+        )}
+        <input
+          type="submit"
+          disabled={
+            this.validateTitle() || this.validateDesc() || this.validateFolder()
+          }
+        />
       </form>
     );
   }

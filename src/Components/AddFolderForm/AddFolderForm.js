@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
-import cuid from 'cuid';
 
 class AddFolderForm extends Component {
   constructor(props) {
@@ -17,8 +16,7 @@ class AddFolderForm extends Component {
     event.preventDefault();
     const folderName = this.state.folder.value;
     const folder = {
-      id: cuid(),
-      name: folderName,
+      name: folderName.trim(),
     };
     fetch('http://localhost:9090/folders/', {
       method: 'POST',
@@ -28,8 +26,8 @@ class AddFolderForm extends Component {
       },
     })
       .then(res => res.json())
-      .then(() => {
-        this.props.onAddFolder(folder);
+      .then(data => {
+        this.props.onAddFolder(data);
         this.props.history.goBack();
       });
   }
@@ -54,7 +52,7 @@ class AddFolderForm extends Component {
 
   render() {
     return (
-      <form onSubmit={e => this.handleNewFolderSubmit(e)}>
+      <form className="Main" onSubmit={e => this.handleNewFolderSubmit(e)}>
         <label htmlFor="folder">Folder Name:</label>
         <input
           type="text"

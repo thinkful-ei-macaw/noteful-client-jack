@@ -33,6 +33,9 @@ class NoteList extends Component {
     const deleteNote = this.context.deleteNote;
     return (
       <ul className="Main note_list">
+        <button onClick={() => this.props.history.push('/new-note/')}>
+          New Note
+        </button>
         {notes.map(note => {
           const date = this.formatDate(note.modified);
           return (

@@ -41,6 +41,12 @@ class App extends Component {
     });
   };
 
+  addNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note],
+    });
+  };
+
   setNotes = notes => {
     this.setState({
       notes: notes,
@@ -70,7 +76,6 @@ class App extends Component {
           <Route exact path={['/', '/note-list/:id']} component={FolderNav} />
           <Route path="/note-details/:id" component={NoteDetailsNav} />
           <Switch>
-            <AddNoteForm folders={this.state.folders} />
             <Route exact path="/" component={NoteList} />
             <Route path="/note-list/:id" component={NoteList} />
             <Route path="/note-details/:id" component={NoteDetails} />
@@ -79,6 +84,17 @@ class App extends Component {
               path="/new-folder/"
               render={({ history }) => (
                 <AddFolderForm history={history} onAddFolder={this.addFolder} />
+              )}
+            />
+            <Route
+              exact
+              path="/new-note/"
+              render={({ history }) => (
+                <AddNoteForm
+                  history={history}
+                  folders={this.state.folders}
+                  onAddNote={this.addNote}
+                />
               )}
             />
             <Route path="/" render={() => <div>404 Not Found</div>} />
