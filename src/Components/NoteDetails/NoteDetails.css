@@ -3,16 +3,18 @@
 }
 
 .Main__note_header {
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 5px;
+  box-shadow: 1px 3px 3px 1px rgba(245, 245, 245, 0.233);
   padding: 1em;
 }
 
-.Main__note_header h2 {
+.Main__note_header h3 {
   margin-top: 4px;
   margin-bottom: 8px;
 }
 
 .Main__note_details {
   padding: 1em;
+  font-size: 1.1em;
 }
