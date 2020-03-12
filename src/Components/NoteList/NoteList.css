@@ -39,6 +39,11 @@
   min-height: 4em;
 }
 
+.Main__new_button {
+  max-height: 5em;
+  align-self: center;
+}
+
 @media screen and (min-width: 600px) {
   .Main.note_list {
     grid-template-columns: 1fr 1fr;
@@ -46,7 +51,7 @@
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1100px) {
   .Main.note_list {
     grid-template-columns: 1fr 1fr 1fr;
   }

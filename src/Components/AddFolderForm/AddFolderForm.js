@@ -33,6 +33,7 @@ class AddFolderForm extends Component {
             throw error;
           });
         }
+        return res.json();
       })
       .then(data => {
         this.props.onAddFolder(data);

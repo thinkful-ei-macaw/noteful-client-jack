@@ -54,6 +54,7 @@ class AddNoteForm extends Component {
             throw error;
           });
         }
+        return res.json();
       })
       .then(data => {
         this.props.onAddNote(data);

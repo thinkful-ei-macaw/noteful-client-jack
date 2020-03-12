@@ -3,18 +3,29 @@ import './NoteDetails.css';
 import NoteContext from '../../NoteContext';
 
 class NoteDetails extends Component {
+  state = { error: false };
+
   static contextType = NoteContext;
 
   handleDeleteNote = (id, callback) => {
     fetch(`http://localhost:9090/notes/${id}`, {
       method: 'DELETE',
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
+        }
+        return res.json();
+      })
       .then(() => {
         this.props.history.push('/');
         callback(id);
       })
-      .catch(err => console.log(err));
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
   formatDate(date) {
@@ -44,6 +55,9 @@ class NoteDetails extends Component {
             >
               Delete
             </button>
+            {this.state.error && (
+              <p>There was an error adding the note, please try again later.</p>
+            )}
           </div>
           <p className="Main__note_details">{content}</p>
         </section>
