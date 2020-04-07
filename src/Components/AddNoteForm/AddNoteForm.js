@@ -17,7 +17,7 @@ class AddNoteForm extends Component {
         touched: false
       },
       folder: {
-        value: null,
+        value: '',
         touched: false
       }
     };
@@ -157,7 +157,10 @@ class AddNoteForm extends Component {
         <input
           type="submit"
           disabled={
-            this.validateTitle() || this.validateDesc() || this.validateFolder()
+            !this.state.title.value ||
+            !this.state.desc.value ||
+            !this.state.folder.value ||
+            this.state.folder.value === 'default'
           }
         />
         {this.state.error && (

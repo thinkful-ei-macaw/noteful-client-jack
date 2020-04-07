@@ -16,6 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "npx nox",
+    "deploy:prod": "npx now --prod",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -32,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "now": "^17.1.1"
   }
 }
