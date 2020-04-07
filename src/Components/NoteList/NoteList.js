@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './NoteList.css';
 import { Link } from 'react-router-dom';
 import NoteContext from '../../NoteContext';
+import api_config from '../../api-config';
 
 class NoteList extends Component {
   static defaultProps = {
@@ -17,7 +18,7 @@ class NoteList extends Component {
   static contextType = NoteContext;
 
   handleDeleteNote = (id, callback) => {
-    fetch(`http://localhost:8000/api/notes/${id}`, {
+    fetch(`${api_config.notes}/${id}`, {
       method: 'DELETE'
     })
       .then((res) => {

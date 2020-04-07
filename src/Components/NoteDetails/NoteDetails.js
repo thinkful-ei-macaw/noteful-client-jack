@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './NoteDetails.css';
 import NoteContext from '../../NoteContext';
+import api_config from '../../api-config';
 
 class NoteDetails extends Component {
   state = { error: false };
@@ -8,7 +9,7 @@ class NoteDetails extends Component {
   static contextType = NoteContext;
 
   handleDeleteNote = (id, callback) => {
-    fetch(`http://localhost:8000/api/notes/${id}`, {
+    fetch(`${api_config.notes}/${id}`, {
       method: 'DELETE'
     })
       .then((res) => {

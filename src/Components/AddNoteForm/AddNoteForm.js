@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
 import './AddNoteForm.css';
+import api_config from '../../api-config';
 
 class AddNoteForm extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class AddNoteForm extends Component {
       content: noteDesc
     };
     console.log(noteFolderId);
-    fetch('http://localhost:8000/api/notes/', {
+    fetch(api_config.notes, {
       method: 'POST',
       body: JSON.stringify(note),
       headers: {

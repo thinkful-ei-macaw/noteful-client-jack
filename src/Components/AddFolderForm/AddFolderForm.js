@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
 import PropTypes from 'prop-types';
 import './AddFolderForm.css';
+import api_config from '../../api-config';
 
 class AddFolderForm extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class AddFolderForm extends Component {
     const folder = {
       name: folderName.trim()
     };
-    fetch('http://localhost:8000/api/folders/', {
+    fetch(api_config.folders, {
       method: 'POST',
       body: JSON.stringify(folder),
       headers: {

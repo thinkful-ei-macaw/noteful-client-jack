@@ -9,6 +9,7 @@ import NoteContext from './NoteContext';
 import AddFolderForm from './Components/AddFolderForm/AddFolderForm';
 import AddNoteForm from './Components/AddNoteForm/AddNoteForm';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
+import api_config from './api-config';
 
 class App extends Component {
   constructor(props) {
@@ -20,10 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const api_link_folders = 'http://localhost:8000/api/folders';
-    const api_link_notes = 'http://localhost:8000/api/notes';
-
-    Promise.all([fetch(api_link_folders), fetch(api_link_notes)])
+    Promise.all([fetch(api_config.folders), fetch(api_config.notes)])
       .then(([folderRes, noteRes]) => {
         if (!folderRes.ok)
           return folderRes.json().then((e) => Promise.reject(e));
