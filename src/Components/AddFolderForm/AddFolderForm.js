@@ -9,8 +9,8 @@ class AddFolderForm extends Component {
     this.state = {
       folder: {
         value: '',
-        touched: false,
-      },
+        touched: false
+      }
     };
   }
 
@@ -18,28 +18,28 @@ class AddFolderForm extends Component {
     event.preventDefault();
     const folderName = this.state.folder.value;
     const folder = {
-      name: folderName.trim(),
+      name: folderName.trim()
     };
-    fetch('http://localhost:9090/folders/', {
+    fetch('http://localhost:8000/api/folders/', {
       method: 'POST',
       body: JSON.stringify(folder),
       headers: {
-        'content-type': 'application/json',
-      },
+        'content-type': 'application/json'
+      }
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          return res.json().then(error => {
+          return res.json().then((error) => {
             throw error;
           });
         }
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         this.props.onAddFolder(data);
         this.props.history.goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -48,8 +48,8 @@ class AddFolderForm extends Component {
     this.setState({
       folder: {
         value: name,
-        touched: true,
-      },
+        touched: true
+      }
     });
   }
 
@@ -64,14 +64,14 @@ class AddFolderForm extends Component {
 
   render() {
     return (
-      <form className="Main" onSubmit={e => this.handleNewFolderSubmit(e)}>
+      <form className="Main" onSubmit={(e) => this.handleNewFolderSubmit(e)}>
         <label htmlFor="folder">Folder Name:</label>
         <input
           type="text"
           name="folder"
           id="folder"
           value={this.state.folder.value}
-          onChange={e => this.updateFolderName(e.target.value)}
+          onChange={(e) => this.updateFolderName(e.target.value)}
         />
         {this.state.folder.touched && (
           <ValidationError message={this.validateFolderName()} />
@@ -87,7 +87,7 @@ class AddFolderForm extends Component {
 
 AddFolderForm.propTypes = {
   onAddFolder: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default AddFolderForm;

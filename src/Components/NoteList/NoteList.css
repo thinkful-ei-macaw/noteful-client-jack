@@ -42,7 +42,9 @@
 
 .Main__new_button {
   max-height: 5em;
-  align-self: center;
+  grid-area: newBtn;
+  align-self: end;
+  margin-left: 20%;
 }
 
 @media screen and (min-width: 600px) {

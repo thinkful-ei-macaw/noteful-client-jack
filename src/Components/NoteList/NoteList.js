@@ -6,33 +6,34 @@ import NoteContext from '../../NoteContext';
 class NoteList extends Component {
   static defaultProps = {
     match: {
-      params: {},
-    },
+      params: {}
+    }
   };
 
   state = {
-    error: false,
+    error: false
   };
 
   static contextType = NoteContext;
 
   handleDeleteNote = (id, callback) => {
-    fetch(`http://localhost:9090/notes/${id}`, {
-      method: 'DELETE',
+    fetch(`http://localhost:8000/api/notes/${id}`, {
+      method: 'DELETE'
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          return res.json().then(error => {
+          return res.json().then((error) => {
             throw error;
           });
         }
-        return res.json();
+        return res;
       })
       .then(() => {
         callback(id);
         this.setState({ error: false });
       })
-      .catch(error => {
+      .catch((error) => {
+        console.log(error);
         this.setState({ error });
       });
   };
@@ -45,7 +46,7 @@ class NoteList extends Component {
     if (this.props.match.params.id) {
       return (
         this.context.notes.filter(
-          note => note.folderId === this.props.match.params.id,
+          (note) => note.folder_id === +this.props.match.params.id
         ) || []
       );
     } else {
@@ -57,33 +58,33 @@ class NoteList extends Component {
     const notes = this.getNotes();
     const deleteNote = this.context.deleteNote;
     return (
-      <ul className="Main note_list">
-        <li>
-          <button
-            className="Main__new_button"
-            onClick={() => this.props.history.push('/new-note/')}
-          >
-            New Note
-          </button>
-          {this.state.error && (
-            <p>There was an error deleting the note, please try again later.</p>
-          )}
-        </li>
-        {notes.map(note => {
-          const date = this.formatDate(note.modified);
-          return (
-            <li key={note.id}>
-              <Link to={`/note-details/${note.id}`}>{note.name}</Link>
-              <p>{date}</p>
-              <button
-                onClick={() => this.handleDeleteNote(note.id, deleteNote)}
-              >
-                Delete
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        {this.state.error && (
+          <p>There was an error deleting the note, please try again later.</p>
+        )}
+        <button
+          className="Main__new_button"
+          onClick={() => this.props.history.push('/new-note/')}
+        >
+          New Note
+        </button>
+        <ul className="Main note_list">
+          {notes.map((note) => {
+            const date = this.formatDate(note.modified);
+            return (
+              <li key={note.id}>
+                <Link to={`/note-details/${note.id}`}>{note.name}</Link>
+                <p>{date}</p>
+                <button
+                  onClick={() => this.handleDeleteNote(note.id, deleteNote)}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </>
     );
   }
 }

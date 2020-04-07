@@ -26,7 +26,7 @@
   .App {
     grid-template-columns: minmax(100px, 300px) 1fr 1fr;
     grid-template-areas:
-      'header header header'
+      'header newBtn ... '
       'nav main main'
       '... main main';
   }

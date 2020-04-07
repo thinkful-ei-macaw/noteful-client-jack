@@ -15,47 +15,48 @@ class App extends Component {
     super(props);
     this.state = {
       folders: [],
-      notes: [],
+      notes: []
     };
   }
 
   componentDidMount() {
-    const api_link_folders = 'http://localhost:9090/folders';
-    const api_link_notes = 'http://localhost:9090/notes';
+    const api_link_folders = 'http://localhost:8000/api/folders';
+    const api_link_notes = 'http://localhost:8000/api/notes';
 
     Promise.all([fetch(api_link_folders), fetch(api_link_notes)])
       .then(([folderRes, noteRes]) => {
-        if (!folderRes.ok) return folderRes.json().then(e => Promise.reject(e));
-        if (!noteRes.ok) return noteRes.json().then(e => Promise.reject(e));
+        if (!folderRes.ok)
+          return folderRes.json().then((e) => Promise.reject(e));
+        if (!noteRes.ok) return noteRes.json().then((e) => Promise.reject(e));
 
         return Promise.all([folderRes.json(), noteRes.json()]);
       })
       .then(([folders, notes]) => {
         this.setState({ folders, notes });
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   }
 
-  addFolder = folder => {
+  addFolder = (folder) => {
     this.setState({
-      folders: [...this.state.folders, folder],
+      folders: [...this.state.folders, folder]
     });
   };
 
-  addNote = note => {
+  addNote = (note) => {
     this.setState({
-      notes: [...this.state.notes, note],
+      notes: [...this.state.notes, note]
     });
   };
 
-  setNotes = notes => {
+  setNotes = (notes) => {
     this.setState({
-      notes: notes,
+      notes: notes
     });
   };
 
-  deleteNote = id => {
-    const newNotes = this.state.notes.filter(n => n.id !== id);
+  deleteNote = (id) => {
+    const newNotes = this.state.notes.filter((n) => n.id !== id);
     this.setNotes(newNotes);
   };
 
@@ -63,7 +64,7 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.deleteNote,
+      deleteNote: this.deleteNote
     };
 
     return (

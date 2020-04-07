@@ -9,14 +9,14 @@ class FolderNav extends Component {
     const folders = this.context.folders || [];
     return (
       <nav className="Sidebar">
+        <button
+          className="Sidebar__new"
+          onClick={() => this.props.history.push('/new-folder/')}
+        >
+          New Folder
+        </button>
         <ul>
-          <button
-            className="Sidebar__new"
-            onClick={() => this.props.history.push('/new-folder/')}
-          >
-            New Folder
-          </button>
-          {folders.map(folder => {
+          {folders.map((folder) => {
             return (
               <li key={folder.id}>
                 <NavLink

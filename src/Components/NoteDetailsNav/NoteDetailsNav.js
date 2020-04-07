@@ -6,28 +6,28 @@ import './NoteDetailsNav.css';
 class NoteDetailsNav extends Component {
   static defaultProps = {
     history: {
-      goBack: () => {},
+      goBack: () => {}
     },
     match: {
-      params: {},
-    },
+      params: {}
+    }
   };
 
   static contextType = NoteContext;
 
   findCurrentNote(notes, id) {
-    return notes ? notes.find(note => note.id === id) : {};
+    return notes ? notes.find((note) => +note.id === +id) : {};
   }
 
   findCurrentFolder(folders, id) {
-    return folders ? folders.find(folder => folder.id === id) : {};
+    return folders ? folders.find((folder) => +folder.id === +id) : {};
   }
 
   render() {
     const { notes, folders } = this.context;
     const currentNoteId = this.props.match.params.id;
     const note = this.findCurrentNote(notes, currentNoteId);
-    const currentFolder = this.findCurrentFolder(folders, note.folderId);
+    const currentFolder = this.findCurrentFolder(folders, note.folder_id);
 
     return (
       <div className="Sidebar">

@@ -8,22 +8,22 @@ class NoteDetails extends Component {
   static contextType = NoteContext;
 
   handleDeleteNote = (id, callback) => {
-    fetch(`http://localhost:9090/notes/${id}`, {
-      method: 'DELETE',
+    fetch(`http://localhost:8000/api/notes/${id}`, {
+      method: 'DELETE'
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          return res.json().then(error => {
+          return res.json().then((error) => {
             throw error;
           });
         }
-        return res.json();
+        return res;
       })
       .then(() => {
         this.props.history.push('/');
         callback(id);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   };
@@ -35,7 +35,7 @@ class NoteDetails extends Component {
   getCurrentNote() {
     const notes = this.context.notes || [];
     return notes.length
-      ? notes.find(n => n.id === this.props.match.params.id)
+      ? notes.find((n) => +n.id === +this.props.match.params.id)
       : [];
   }
 
@@ -51,12 +51,16 @@ class NoteDetails extends Component {
             <h3>{name}</h3>
             <p>{dateModified}</p>
             <button
-              onClick={() => this.handleDeleteNote(id, this.context.deleteNote)}
+              onClick={() =>
+                this.handleDeleteNote(+id, this.context.deleteNote)
+              }
             >
               Delete
             </button>
             {this.state.error && (
-              <p>There was an error adding the note, please try again later.</p>
+              <p>
+                There was an error deleting the note, please try again later.
+              </p>
             )}
           </div>
           <p className="Main__note_details">{content}</p>

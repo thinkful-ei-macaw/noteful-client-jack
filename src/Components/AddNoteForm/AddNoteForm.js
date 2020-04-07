@@ -9,22 +9,22 @@ class AddNoteForm extends Component {
     this.state = {
       title: {
         value: '',
-        touched: false,
+        touched: false
       },
       desc: {
         value: '',
-        touched: false,
+        touched: false
       },
       folder: {
         value: null,
-        touched: false,
-      },
+        touched: false
+      }
     };
   }
 
-  getFolderId = folderName => {
+  getFolderId = (folderName) => {
     const currentFolder = this.props.folders.find(
-      folder => folder.name === folderName,
+      (folder) => folder.name === folderName
     );
     return currentFolder.id;
   };
@@ -37,30 +37,30 @@ class AddNoteForm extends Component {
     const note = {
       name: noteTitle,
       modified: Date.now(),
-      folderId: noteFolderId,
-      content: noteDesc,
+      folder_id: noteFolderId,
+      content: noteDesc
     };
     console.log(noteFolderId);
-    fetch('http://localhost:9090/notes/', {
+    fetch('http://localhost:8000/api/notes/', {
       method: 'POST',
       body: JSON.stringify(note),
       headers: {
-        'content-type': 'application/json',
-      },
+        'content-type': 'application/json'
+      }
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          return res.json().then(error => {
+          return res.json().then((error) => {
             throw error;
           });
         }
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         this.props.onAddNote(data);
         this.props.history.goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -69,8 +69,8 @@ class AddNoteForm extends Component {
     this.setState({
       title: {
         value: title,
-        touched: true,
-      },
+        touched: true
+      }
     });
   }
 
@@ -78,8 +78,8 @@ class AddNoteForm extends Component {
     this.setState({
       desc: {
         value: desc,
-        touched: true,
-      },
+        touched: true
+      }
     });
   }
 
@@ -87,8 +87,8 @@ class AddNoteForm extends Component {
     this.setState({
       folder: {
         value: folder,
-        touched: true,
-      },
+        touched: true
+      }
     });
   }
 
@@ -117,13 +117,13 @@ class AddNoteForm extends Component {
 
   render() {
     return (
-      <form className="Main" onSubmit={e => this.handleSubmit(e)}>
+      <form className="Main" onSubmit={(e) => this.handleSubmit(e)}>
         <label htmlFor="title">Title</label>
         <input
           type="text"
           name="title"
           id="title"
-          onChange={e => this.updateTitle(e.target.value)}
+          onChange={(e) => this.updateTitle(e.target.value)}
         />
         {this.state.title.touched && (
           <ValidationError message={this.validateTitle()} />
@@ -133,7 +133,7 @@ class AddNoteForm extends Component {
           type="text"
           name="desc"
           id="desc"
-          onChange={e => this.updateDesc(e.target.value)}
+          onChange={(e) => this.updateDesc(e.target.value)}
         />
         {this.state.desc.touched && (
           <ValidationError message={this.validateDesc()} />
@@ -141,10 +141,10 @@ class AddNoteForm extends Component {
         <label htmlFor="folder"></label>
         <select
           htmlFor="folder"
-          onChange={e => this.updateFolder(e.target.value)}
+          onChange={(e) => this.updateFolder(e.target.value)}
         >
           <option value="default">Select a folder..</option>
-          {this.props.folders.map(folder => (
+          {this.props.folders.map((folder) => (
             <option value={folder.name} key={folder.id}>
               {folder.name}
             </option>
@@ -172,10 +172,10 @@ AddNoteForm.propTypes = {
   history: PropTypes.object.isRequired,
   folders: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-    }),
-  ),
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  )
 };
 
 export default AddNoteForm;
